@@ -1,5 +1,5 @@
 # Generic Makefile
-This is a generic Makefile for C and C++ projects that supports the following.
+This is a generic Makefile for C and C++ projects (FORTRAN should also work) that supports the following.
 * Separate source and include directories
 * Sub-directories in both source and include directories.
 * Separate directories for object and executables (will be created automatically)
