@@ -26,6 +26,7 @@ SRCEXT		= c
 HDREXT		= h
 OBJEXT		= o
 COMPILER	= $(CC)
+BINNAME		= prog
 
 ###############################################################
 # Variables for compile and link time flags                   #
@@ -51,7 +52,7 @@ EXECDIR		= bin
 ###############################################################
 # The final variable for the binary name                      #
 ###############################################################
-BINARY		= $(EXECDIR)/main
+BINARY		= $(EXECDIR)/$(BINNAME)
 
 ###############################################################
 # List variables                                              #
