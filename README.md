@@ -6,6 +6,7 @@ This is a generic Makefile for C and C++ projects (FORTRAN should also work) tha
 * Object directory will contain a directory structure that mirrors that of the source directory
 * Customizable directory names, file extensions and executable file names
 * Customizable compiler and linker flags
+* Separate debug and release targets
 
 ## Installation and Usage
 
