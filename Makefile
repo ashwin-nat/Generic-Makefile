@@ -30,8 +30,9 @@ BINNAME		= prog
 
 ###############################################################
 # Variables for compile and link time flags                   #
+# (Please don't pass -c CFLAG here)                           #
 ###############################################################
-CFLAGS		= -Wall -Werror -c
+CFLAGS		= -Wall -Werror
 CFLAGS_SAN	= -fsanitize=address -fsanitize=undefined
 CFLAGS_DBG	= -O0 -ggdb3
 CFLAGS_REL	= -O2
@@ -119,7 +120,7 @@ debugsan: dir_check $(BINARY)
 # Compile all source files with CFLAGS                        #
 ###############################################################
 $(OBJDIR)/%.$(OBJEXT):$(SRCDIR)/%.$(SRCEXT)
-	$(COMPILER) $(CFLAGS) $(HDRLIST) -o $@ $<
+	$(COMPILER) -c $(CFLAGS) $(HDRLIST) -o $@ $<
 
 ###############################################################
 # Link all object files with LDFLAGS                          #
