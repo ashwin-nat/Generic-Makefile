@@ -127,6 +127,7 @@ $(OBJDIR)/%.$(OBJEXT):$(SRCDIR)/%.$(SRCEXT)
 ###############################################################
 $(BINARY): $(OBJLIST)
 	$(COMPILER) $(LDFLAGS) $(OBJLIST) -o $(BINARY)
+	@echo "The executable is at $(BINARY)"
 
 ###############################################################
 # Remove all created directories and subdirectories           #
