@@ -81,7 +81,7 @@ all: release
 debug_print:
 	@echo "HDRLIST = $(HDRLIST)"
 	@echo "SRCLIST = $(SRCLIST)"
-	@echo "OBJLIST = $(OBJTREE)"
+	@echo "OBJLIST = $(OBJLIST)"
 	@echo "SRCTREE = $(SRCTREE)"
 	@echo "OBJTREE = $(OBJTREE)"
 
