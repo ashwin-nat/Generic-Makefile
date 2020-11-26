@@ -59,12 +59,14 @@ BINARY		= $(EXECDIR)/$(BINNAME)
 # List variables                                              #
 ###############################################################
 OBJTREE_TMP	= $(addprefix $(OBJDIR)/,\
-				$(subst $(SRCDIR)/,,$(SRCTREE)))
+			$(subst $(SRCDIR)/,,$(SRCTREE)))
 
-HDRLIST		= $(addprefix -I , $(shell find $(HDRDIR) -type d))
+HDRLIST		= $(addprefix -I ,\
+			$(shell find $(HDRDIR) -type d))
 SRCLIST		= $(shell find $(SRCDIR) -name "*.$(SRCEXT)")
 OBJLIST		= $(subst .$(SRCEXT),.$(OBJEXT),\
-				$(subst $(SRCDIR)/,$(OBJDIR)/,$(SRCLIST)))
+			$(subst $(SRCDIR)/,$(OBJDIR)/,\
+			$(SRCLIST)))
 SRCTREE		= $(shell find $(SRCDIR) -type d)
 OBJTREE		= $(subst $(SRCDIR),,$(OBJTREE_TMP))
 
@@ -126,7 +128,7 @@ $(OBJDIR)/%.$(OBJEXT):$(SRCDIR)/%.$(SRCEXT)
 # Link all object files with LDFLAGS                          #
 ###############################################################
 $(BINARY): $(OBJLIST)
-	$(COMPILER) $(LDFLAGS) $(OBJLIST) -o $(BINARY)
+	$(COMPILER) $(OBJLIST) -o $(BINARY) $(LDFLAGS)
 	@echo "The executable is at $(BINARY)"
 
 ###############################################################
