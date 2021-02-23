@@ -133,7 +133,6 @@ $(BINARY): $(OBJLIST)
 	$(COMPILER) $(OBJLIST) -o $(BINARY) $(LDFLAGS)
 	@$(MOVE) $(BINARY) $(FINDIR)
 	@echo "The executable is at $(FINDIR)/$(BINARY)"
-	@echo "FINDIR is $(FINDIR)"
 
 ###############################################################
 # Remove all created object files and binaries                #
