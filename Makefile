@@ -22,12 +22,11 @@
 ###############################################################
 RM_RF		= rm -rf
 MKDIR_P		= mkdir -p
-MOVE		= mv
 SRCEXT		= c
 HDREXT		= h
 OBJEXT		= o
 COMPILER	= $(CC)
-BINARY		= prog
+PROG		= prog
 
 ###############################################################
 # Variables for compile and link time flags                   #
@@ -51,7 +50,13 @@ HDRDIR		= inc
 OBJDIR		= obj
 RELDIR		= bin
 DBGDIR		= dbg
+
+###############################################################
+# Misc variables                                              #
+###############################################################
 FINDIR		= 
+BINREL		= $(RELDIR)/$(PROG)
+BINDBG		= $(DBGDIR)/$(PROG)
 
 ###############################################################
 # List variables                                              #
@@ -100,7 +105,7 @@ dir_check:
 release: CFLAGS+=$(CFLAGS_REL)
 release: LDFLAGS+=$(LDFLAGS_REL)
 release: FINDIR+=$(RELDIR)
-release: dir_check $(BINARY)
+release: dir_check $(BINREL)
 
 ###############################################################
 # Debug build (without runtime sanitizers)                    #
@@ -108,7 +113,7 @@ release: dir_check $(BINARY)
 debug: CFLAGS+=$(CFLAGS_DBG)
 debug: LDFLAGS+=$(LDFLAGS_DBG)
 debug: FINDIR+=$(DBGDIR)
-debug: dir_check $(BINARY)
+debug: dir_check $(BINDBG)
 
 ###############################################################
 # Debug build (with Address and UB runtime sanitizers)        #
@@ -118,7 +123,7 @@ debugsan: CFLAGS+=$(CFLAGS_SAN)
 debugsan: LDFLAGS+=$(LDFLAGS_DBG)
 debugsan: LDFLAGS+=$(LDFLAGS_SAN)
 debugsan: FINDIR+=$(DBGDIR)
-debugsan: dir_check $(BINARY)
+debugsan: dir_check $(BINDBG)
 
 ###############################################################
 # Compile all source files with CFLAGS                        #
@@ -129,26 +134,29 @@ $(OBJDIR)/%.$(OBJEXT):$(SRCDIR)/%.$(SRCEXT)
 ###############################################################
 # Link all object files with LDFLAGS                          #
 ###############################################################
-$(BINARY): $(OBJLIST)
-	$(COMPILER) $(OBJLIST) -o $(BINARY) $(LDFLAGS)
-	@$(MOVE) $(BINARY) $(FINDIR)
-	@echo "The executable is at $(FINDIR)/$(BINARY)"
+$(BINDBG): $(OBJLIST)
+	$(COMPILER) $(OBJLIST) -o $(BINDBG) $(LDFLAGS)
+	@echo "The executable is at $(BINDBG)"
+
+$(BINREL): $(OBJLIST)
+	$(COMPILER) $(OBJLIST) -o $(BINREL) $(LDFLAGS)
+	@echo "The executable is at $(BINREL)"
 
 ###############################################################
 # Remove all created object files and binaries                #
 ###############################################################
 clean:
-	@$(RM_RF) $(OBJDIR)/*
-	@$(RM_RF) $(RELDIR)/*
-	@$(RM_RF) $(DBGDIR)/*
+	$(RM_RF) $(OBJDIR)/*
+	$(RM_RF) $(RELDIR)/*
+	$(RM_RF) $(DBGDIR)/*
 
 ###############################################################
 # Remove all created directories and their contents           #
 ###############################################################
 purge:
-	@$(RM_RF) $(OBJDIR)
-	@$(RM_RF) $(RELDIR)
-	@$(RM_RF) $(DBGDIR)
+	$(RM_RF) $(OBJDIR)
+	$(RM_RF) $(RELDIR)
+	$(RM_RF) $(DBGDIR)
 
 ###############################################################
 # Help output                                                 #
